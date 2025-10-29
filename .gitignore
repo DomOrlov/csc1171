@@ -3,3 +3,4 @@ __pycache__/
 .DS_Store
 .env
 data/raw/
+notebooks/Sergei/datasets/AMEX_NYSE_NASDAQ_stock_histories/full_history/
