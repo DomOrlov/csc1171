@@ -172,8 +172,8 @@ Alamos Gold Inc. Class A Common Shares,AGI,2009-02-17,NYSE
 "Agios Pharmaceuticals, Inc. - Common Stock",AGIO,2013-07-24,NASDAQ
 ,AGLE,2016-04-07,
 Federal Agricultural Mortgage Corporation Common Stock,AGM,1994-02-10,NYSE
-,AGM-A,1993-12-13,
-,AGM-A,1993-12-13,
+Federal Agricultural Mortgage Corporation Common Stock,AGM-A,1993-12-13,NYSE
+Federal Agricultural Mortgage Corporation Common Stock,AGM-A,1993-12-13,NYSE
 AGM Group Holdings Inc. - Class A Ordinary Shares,AGMH,2018-04-18,NASDAQ
 AGNC Investment Corp. - Common Stock,AGNC,2008-05-15,NASDAQ
 AGNC Investment Corp. - Depositary Shares rep 6.875% Series D Fixed-to-Floating Cumulative Redeemable Preferred Stock,AGNCM,2020-07-02,NASDAQ
@@ -234,8 +234,8 @@ Arthur J. Gallagher & Co. Common Stock,AJG,1984-06-20,NYSE
 "Akebia Therapeutics, Inc. - Common Stock",AKBA,2014-03-20,NASDAQ
 ,AKCA,2017-07-14,
 ,AKER,2014-01-23,
-,AKO-A,1994-07-07,
-,AKO-B,1997-04-07,
+Embotelladora Andina S.A. Common Stock,AKO-A,1994-07-07,NYSE
+Embotelladora Andina S.A. Common Stock,AKO-B,1997-04-07,NYSE
 Acadia Realty Trust Common Stock,AKR,2020-07-02,NYSE
 "Akero Therapeutics, Inc. - Common Stock",AKRO,2019-06-20,NASDAQ
 ,AKTS,2015-06-04,
@@ -729,7 +729,7 @@ BlackRock Floating Rate Income Trust,BGT,2004-08-30,NYSE
 Blackstone Long Short Credit Income Fund Common Shares,BGX,2011-01-27,NYSE
 Blackrock Enhanced International Dividend Trust,BGY,2007-05-25,NYSE
 Biglari Holdings Inc. Class B Common Stock,BH,2020-07-02,NYSE
-,BH-A,2018-05-02,
+Biglari Holdings Inc. Class A Common Stock,BH-A,2018-05-02,NYSE
 "Bar Harbor Bankshares, Inc. Common Stock",BHB,1997-09-23,AMEX
 Bausch Health Companies Inc. Common Stock,BHC,1994-03-29,NYSE
 "Benchmark Electronics, Inc. Common Stock",BHE,1990-06-27,NYSE
@@ -1271,7 +1271,7 @@ First Trust NASDAQ Cybersecurity ETF,CIBR,2020-07-02,NASDAQ
 ,CIDM,2003-11-10,
 Ciena Corporation Common Stock,CIEN,1997-02-07,NYSE
 Comp En De Mn Cemig ADS American Depositary Shares,CIG,1996-11-18,NYSE
-,CIG-C,2012-06-18,
+Comp En De Mn Cemig ADS American Depositary Receipts,CIG-C,2012-06-18,NYSE
 Colliers International Group Inc.  - Subordinate Voting Shares,CIGI,1995-01-20,NASDAQ
 ,CIH,2003-06-02,
 "BlackRock Enhanced Large Cap Core Fund, Inc. Common Stock",CII,2004-05-26,NYSE
@@ -1454,7 +1454,7 @@ Crane Company Common Stock,CR,1980-03-17,NYSE
 iShares MSCI ACWI Low Carbon Target ETF,CRBN,2014-12-11,NYSE ARCA
 "Corbus Pharmaceuticals Holdings, Inc. - Common Stock",CRBP,2014-10-27,NASDAQ
 California Resources Corporation Common Stock,CRC,1992-04-16,NYSE
-,CRD-A,2020-07-02,
+Crawford & Company Common Stock,CRD-A,2020-07-02,NYSE
 Crawford & Company Common Stock,CRD.B,,NYSE
 "Cardiff Oncology, Inc. - Common Stock",CRDF,2019-11-08,NASDAQ
 ,CREE,1993-02-09,
@@ -1937,7 +1937,7 @@ Global X E-commerce ETF,EBIZ,2018-11-30,NASDAQ
 SPDR Bloomberg Emerging Markets Local Bond ETF,EBND,2011-02-24,NYSE ARCA
 Ebang International Holdings Inc. - Class A Ordinary Shares,EBON,2020-06-26,NASDAQ
 Centrais Electricas Brasileiras S A American Depositary Shares (Each representing one Common Share),EBR,2020-07-02,NYSE
-,EBR-B,2020-07-02,
+Centrais Electricas Brasileiras S.A. Sponsored ADS representing Pfd Shares,EBR-B,2020-07-02,NYSE
 Emergent BioSolutions Inc. Common Stock,EBS,2006-11-15,NYSE
 ,EBSB,2008-01-23,
 ,EBTC,2005-02-14,
@@ -2985,7 +2985,7 @@ Greenpro Capital Corp. - Common Stock,GRNQ,2018-04-17,NASDAQ
 ,GRNVR,2020-07-01,
 ,GRNVU,2019-11-19,
 "U.S. Global Investors, Inc. - Class A Common Stock",GROW,1985-04-24,NASDAQ
-,GRP-U,,
+Granite Real Estate Inc. Units,GRP-U,,NYSE
 "Groupon, Inc. - Common Stock",GRPN,2011-11-04,NASDAQ
 ,GRTS,2018-09-28,
 ,GRU,2008-02-15,
@@ -3029,7 +3029,7 @@ Good Times Restaurants Inc. - Common Stock,GTIM,1992-07-09,NASDAQ
 Goldman Sachs Access Inflation Protected USD Bond ETF,GTIP,2011-05-23,BATS
 "Chart Industries, Inc. Common Stock",GTLS,2006-07-26,NYSE
 "Gray Media, Inc. Common Stock",GTN,2002-08-30,NYSE
-,GTN-A,1993-03-17,
+"Gray Media, Inc. Class A Common Stock",GTN-A,1993-03-17,NYSE
 Invesco Total Return Bond ETF,GTO,2016-02-12,NYSE ARCA
 ,GTS,2007-12-07,
 ,GTT,2006-11-29,
@@ -3282,7 +3282,7 @@ First Trust Exchange-Traded Fund III First Trust Horizon Managed Volatility Dome
 "HUYA Inc. American depositary shares, each  representing one Class A ordinary share",HUYA,2018-05-11,NYSE
 ,HVBC,2020-07-02,
 "Haverty Furniture Companies, Inc. Common Stock",HVT,1980-03-17,NYSE
-,HVT-A,1986-05-27,
+"Haverty Furniture Companies, Inc. Common Stock",HVT-A,1986-05-27,NYSE
 "Hawthorn Bancshares, Inc. - Common Stock",HWBK,1999-07-20,NASDAQ
 ,HWCC,2020-07-02,
 ,HWCPL,2015-04-01,
@@ -4358,7 +4358,7 @@ Milestone Pharmaceuticals Inc. - Common Shares,MIST,2019-05-09,NASDAQ
 ,MIXT,2020-07-02,
 ,MJO,2014-08-27,
 "McCormick & Company, Incorporated Common Stock",MKC,1973-02-21,NYSE
-,MKC-V,2003-10-09,
+"McCormick & Company, Incorporated Common Stock",MKC-V,2003-10-09,NYSE
 ,MKD,2019-12-30,
 ,MKGI,2015-07-01,
 MKS Inc. - Common Stock,MKSI,1999-03-30,NASDAQ
@@ -4420,7 +4420,7 @@ VanEck Morningstar Wide Moat ETF,MOAT,2012-04-25,BATS
 Modine Manufacturing Company Common Stock,MOD,1982-09-20,NYSE
 "MidWestOne Financial Group, Inc. - Common Stock",MOFG,2020-07-02,NASDAQ
 Moog Inc. Class A Common Stock,MOG.A,,NYSE
-,MOG-B,1980-03-17,
+Moog Inc. Class B Common Stock,MOG-B,1980-03-17,NYSE
 Mogo Inc. - Common Shares,MOGO,2020-07-02,NASDAQ
 MOGU Inc. American Depositary Shares (each  representing 25 Class A Ordinary Shares),MOGU,2018-12-06,NYSE
 Molina Healthcare Inc Common Stock,MOH,2003-07-02,NYSE
@@ -5098,7 +5098,7 @@ Invesco Food & Beverage ETF,PBJ,2005-06-23,NYSE ARCA
 Invesco S&P 500 BuyWrite ETF,PBP,2007-12-27,BATS
 ,PBPB,2013-10-04,
 Petroleo Brasileiro S.A. Petrobras ADS,PBR,2000-08-10,NYSE
-,PBR-A,2020-07-02,
+Petroleo Brasileiro S.A. Petrobras American Depositary Shares representing Preferred Shares,PBR-A,2020-07-02,NYSE
 ,PBS,2005-06-23,
 ,PBSM,2017-09-25,
 Permian Basin Royalty Trust Common Stock,PBT,1980-10-24,NYSE
@@ -6467,7 +6467,7 @@ Tantech Holdings Ltd. - Common Shares,TANH,2015-03-24,NASDAQ
 ,TANNZ,2015-10-09,
 Taoping Inc. - Ordinary Shares,TAOP,2006-09-22,NASDAQ
 Molson Coors Beverage Company Class B Common Stock,TAP,2020-07-02,NYSE
-,TAP-A,2020-06-29,
+Molson Coors Beverage Company Class A Common Stock,TAP-A,2020-06-29,NYSE
 "Protara Therapeutics, Inc.  - Common Stock",TARA,2014-10-22,NASDAQ
 ,TARO,1982-09-14,
 ,TAST,2006-12-15,
@@ -7290,7 +7290,7 @@ WillScot Holdings Corporation - Class A Common Stock,WSC,2015-11-05,NASDAQ
 ,WSG,2014-11-24,
 "Williams-Sonoma, Inc. Common Stock (DE)",WSM,1983-07-07,NYSE
 "Watsco, Inc. Common Stock",WSO,1984-06-07,NYSE
-,WSO-B,1980-03-17,
+"Watsco, Inc. Class B Common Stock",WSO-B,1980-03-17,NYSE
 Whitestone REIT Common Shares,WSR,2010-08-26,NYSE
 "West Pharmaceutical Services, Inc. Common Stock",WST,1980-03-17,NYSE
 ,WSTG,1995-07-18,
