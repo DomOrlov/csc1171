@@ -1,0 +1,2 @@
+data/raw/AMEX_NYSE_NASDAQ_stock_histories/*.csv filter=lfs diff=lfs merge=lfs -text
+data/raw/SP500_ETF_FX_Crypto_Daily/*.csv filter=lfs diff=lfs merge=lfs -text
