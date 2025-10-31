@@ -1,10 +1,22 @@
+# Jupyter & Python caches
 .ipynb_checkpoints/
 __pycache__/
 .DS_Store
 .env
-data/raw/
+
+# Default: ignore everything in data/
+#/ means "from repo root"
+#/ ** means "everything under it recursively"
+/data/**
+
+# Allow these specific raw datasets to be tracked (overrides above)
+!/data/
+!/data/raw/
+!/data/raw/Global_Stock_Market_2008-2023/**
+!/data/raw/EDHEC_Hedge_Fund_Returns/**
+!/data/raw/AMEX_NYSE_NASDAQ_stock_histories/**
+!/data/raw/SP500_ETF_FX_Crypto_Daily/**
+
+# (Keep Sergei's massive scratch out of git)
 notebooks/Sergei/datasets/AMEX_NYSE_NASDAQ_stock_histories/AMEX_NYSE_NASDAQ_stock_histories/full_history/
 notebooks/Sergei/datasets/AMEX_NYSE_NASDAQ_stock_histories/AMEX_NYSE_NASDAQ_stock_histories/fh_5yrs.csv
-
-# Ignore all data files
-/data/
