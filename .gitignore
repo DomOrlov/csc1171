@@ -5,3 +5,6 @@ __pycache__/
 data/raw/
 notebooks/Sergei/datasets/AMEX_NYSE_NASDAQ_stock_histories/AMEX_NYSE_NASDAQ_stock_histories/full_history/
 notebooks/Sergei/datasets/AMEX_NYSE_NASDAQ_stock_histories/AMEX_NYSE_NASDAQ_stock_histories/fh_5yrs.csv
+
+# Ignore all data files
+/data/
