@@ -247,3 +247,13 @@ for symbol, df in cleaned_data.items():
 for symbol, df in cleaned_data.items():
     summarize_data(df, symbol)
     plot_time_series(df, "real_close", symbol)
+
+
+output_folder = "/content/cleaned_files"
+os.makedirs(output_folder, exist_ok=True)  # create folder if it doesn't exist
+
+for symbol, df in cleaned_data.items():
+    # Save each cleaned DataFrame as CSV
+    output_path = os.path.join(output_folder, f"{symbol}_cleaned.csv")
+    df.to_csv(output_path)
+    print(f"Saved cleaned data for {symbol} to {output_path}")
