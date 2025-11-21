@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Nov 20 17:48:05 2025
+
+@author: Enrico
+"""
+
 import os
 import re
 import pandas as pd
@@ -32,6 +39,30 @@ def build_market_info():
     return df
 
 market_info = build_market_info()
+
+def normalize_columns(df):
+    """Normalize column names: lowercase, strip spaces, replace non-alphanum with underscores."""
+    df = df.copy()
+    df.columns = (
+        df.columns.str.strip()
+                  .str.lower()
+                  .str.replace(r'\s+', '_', regex=True)
+                  .str.replace(r'[^\w]', '', regex=True)
+    )
+    return df
+
+def _dedupe_ohlcv(df):
+    """
+    Remove duplicate dates in OHLCV data, keeping the last occurrence.
+    Assumes 'date' column exists.
+    """
+    if 'date' not in df.columns:
+        raise ValueError("DataFrame must have a 'date' column")
+    df = df.sort_values('date')  # ensure chronological order
+    df = df.drop_duplicates(subset='date', keep='last')
+    df = df.set_index('date')
+    return df
+
 
 def get_exchange_rate(currency, start_date, end_date):
     """Get daily exchange rate to USD."""
@@ -69,12 +100,35 @@ def get_exchange_rate(currency, start_date, end_date):
     return data[['Date','Rate_to_USD']]
 
 def convert_to_usd(df, currency, exchange_rates):
-    df['Date'] = df.index
+    """
+    Merge df with exchange rates and compute Value_USD.
+    Ensures no MultiIndex issues.
+    """
+    df = df.copy()
+
+    # Reset index if it's a MultiIndex
+    if isinstance(df.index, pd.MultiIndex):
+        df = df.reset_index()
+
+    # Ensure 'Date' column exists for merge
+    if 'Date' not in df.columns:
+        df['Date'] = df.index
+
+    df['Date'] = pd.to_datetime(df['Date']).dt.tz_localize(None)
     exchange_rates['Date'] = pd.to_datetime(exchange_rates['Date']).dt.tz_localize(None)
-    merged = df.merge(exchange_rates, on='Date', how='left')
-    merged['Value_USD'] = merged['close'] * merged['Rate_to_USD']
+
+    merged = pd.merge(df, exchange_rates, on='Date', how='left')
+
+    # Use 'close' if exists, otherwise fallback to first numeric column
+    if 'close' in merged.columns:
+        merged['Value_USD'] = merged['close'] * merged['Rate_to_USD']
+    else:
+        first_numeric = merged.select_dtypes(include='number').columns[0]
+        merged['Value_USD'] = merged[first_numeric] * merged['Rate_to_USD']
+
     merged = merged.set_index('Date')
     return merged
+
 
 def get_inflation_index(start_date, end_date):
     """Fetch daily interpolated US CPI from FRED."""
@@ -123,35 +177,60 @@ def chi_square_test(observed, expected):
     return chi_sq
 
 def process_asset_file(filepath, asset_name, market_info):
+    """
+    Process a single asset CSV file:
+    - Clean columns and normalize names
+    - Ensure date column exists
+    - Deduplicate OHLCV data
+    - Convert to USD if necessary
+    - Adjust for inflation
+    """
+    # Load CSV
     df = pd.read_csv(filepath, on_bad_lines="skip", low_memory=False)
-    date_col = next((c for c in df.columns if "date" in c.lower() or "time" in c.lower()), None)
+
+    # Normalize columns
+    df = normalize_columns(df)
+
+    # Find date-like column
+    date_col = next((c for c in df.columns if "date" in c or "time" in c), None)
     if date_col is None:
         raise ValueError(f"No date-like column found in {filepath}")
 
-    df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
-    df = df.dropna(subset=[date_col])
-    df = df.sort_values(date_col)
-    df = normalize_columns(df)
+    # Rename to 'date'
     if date_col != "date":
-        df = df.rename(columns={date_col:"date"})
-    df = df.set_index("date")
-    df = _dedupe_ohlcv(df.reset_index()).set_index("date")
+        df = df.rename(columns={date_col: "date"})
 
-    # Currency to USD
-    row = market_info.loc[market_info['symbol (acronym)']==asset_name]
+    # Convert date to datetime
+    df['date'] = pd.to_datetime(df['date'], errors="coerce")
+    df = df.dropna(subset=['date'])
+    df = df.sort_values('date')
+
+    # Deduplicate OHLCV
+    df = _dedupe_ohlcv(df)
+
+    # Skip if empty
+    if df.empty:
+        print(f"Skipping {asset_name}: no valid dates after cleaning")
+        return pd.DataFrame()
+
+    # Get currency
+    row = market_info.loc[market_info['symbol (acronym)'] == asset_name]
     currency = row['Currency'].iloc[0] if len(row) else 'USD'
 
+    # Convert to USD if needed
     if currency != "USD":
         fx = get_exchange_rate(currency, df.index.min(), df.index.max())
         df = convert_to_usd(df, currency, fx)
     else:
-        df['Value_USD'] = df['close']
+        df['Value_USD'] = df.get('close', np.nan)
 
     # Inflation adjustment
     inflation_index = get_inflation_index(df.index.min(), df.index.max())
     df = adjust_for_inflation(df, inflation_index)
 
     return df
+
+
 
 def looks_like_returns_matrix(df):
     if not isinstance(df.index, pd.DatetimeIndex):
@@ -206,7 +285,7 @@ def process_folder(path, market_info):
         df = calendar_align(df)
         results[symbol] = df
     return results
-  
+
 def summarize_data(df, symbol=None):
     summary = pd.DataFrame({
         "first_date": [df.index.min()],
@@ -236,10 +315,52 @@ def plot_time_series(df, column="close", symbol=None):
     else:
         print(f"{symbol}: missing 'close' or 'real_close', cannot plot comparison")
 
+def process_folder_using_dictionary(path, market_info, dictionary_csv):
 
-folder_path = "/content/unclean files"
+    # Read dictionary
+    dict_df = pd.read_csv(dictionary_csv, header=None)
 
-cleaned_data = process_folder(folder_path, market_info)
+    # Extract all tickers (columns 1..end)
+    all_symbols = set()
+
+    for _, row in dict_df.iterrows():
+        # skip the first entry (category)
+        symbols = row.dropna().tolist()[1:]
+        symbols = [str(s).strip().upper() for s in symbols]
+        all_symbols.update(symbols)
+
+    # Convert symbols → filenames
+    allowed_files = {f"{symbol}.csv" for symbol in all_symbols}
+
+    print("Allowed files:", allowed_files)
+
+    results = {}
+
+    for file in os.listdir(path):
+        if file not in allowed_files:
+            continue  # skip files not in dictionary
+
+        symbol = os.path.splitext(file)[0].upper()
+        full_path = os.path.join(path, file)
+
+        print(f"Processing {symbol} ...")
+
+        df = process_asset_file(full_path, symbol, market_info)
+        df = calendar_align(df)
+        results[symbol] = df
+
+    return results
+
+folder_path = "archive (1)/full_history"
+
+dictionary_path = "archive (1)\company_dictionary.csv"
+
+cleaned_data = process_folder_using_dictionary(
+    folder_path,
+    market_info,
+    dictionary_path
+)
+
 
 for symbol, df in cleaned_data.items():
     print(symbol, df.head())
@@ -249,8 +370,24 @@ for symbol, df in cleaned_data.items():
     plot_time_series(df, "real_close", symbol)
 
 
-output_folder = "/content/cleaned_files"
+output_folder = "output"
 os.makedirs(output_folder, exist_ok=True)  # create folder if it doesn't exist
+
+for symbol, df in cleaned_data.items():
+
+    full_path = os.path.join(output_folder, f"{symbol}_cleaned_full.csv")
+    df.to_csv(full_path)
+    
+    df_2008_2020 = df.loc[(df.index >= "2008-01-01") & (df.index <= "2020-12-31")]
+    path_2008_2020 = os.path.join(output_folder, f"{symbol}_cleaned_2008_2020.csv")
+    df_2008_2020.to_csv(path_2008_2020)
+
+    df_2020_onward = df.loc[df.index >= "2020-01-01"]
+    path_2020_onward = os.path.join(output_folder, f"{symbol}_cleaned_2020_onward.csv")
+    df_2020_onward.to_csv(path_2020_onward)
+
+    print(f"Saved 3 versions for {symbol}")
+
 
 for symbol, df in cleaned_data.items():
     # Save each cleaned DataFrame as CSV
