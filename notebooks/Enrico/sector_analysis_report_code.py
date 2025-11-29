@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Nov 29 16:38:13 2025
-
-@author: Enrico
-"""
-
 import os
 import pandas as pd
 import seaborn as sns
@@ -129,3 +122,4 @@ plt.title("Average Model Accuracy by Sector")
 plt.xticks(rotation=45)
 plt.tight_layout()
 plt.show()
+
