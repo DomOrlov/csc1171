@@ -11,4 +11,4 @@ __pycache__/
 notebooks/Dominik/
 notebooks/Sergei/datasets/AMEX_NYSE_NASDAQ_stock_histories/AMEX_NYSE_NASDAQ_stock_histories/full_history/
 notebooks/Sergei/datasets/AMEX_NYSE_NASDAQ_stock_histories/AMEX_NYSE_NASDAQ_stock_histories/fh_5yrs.csv
-/notebooks/Dominik/Notebooks/*.png
+notebooks/Dominik/Notebooks/*.png
