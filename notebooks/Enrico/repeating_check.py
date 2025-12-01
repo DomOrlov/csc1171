@@ -1,35 +1,21 @@
- # -*- coding: utf-8 -*-
-"""
-Created on Mon Oct 27 10:24:58 2025
-
-@author: Enrico
-"""
-
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Oct 18 15:38:23 2025
-
-@author: Enrico
-"""
-
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# --- Config ---
+
 folder_path = "full_history"  # Folder containing the CSV files
 output_file = "data_quality_report.txt"
 
-# --- Clear previous report ---
+
 with open(output_file, "w", encoding="utf-8") as f:
     f.write("Data Quality Report: Consecutive Duplicate & Missing Data Checker\n")
     f.write("=" * 70 + "\n\n")
 
-# --- To store summary of consecutive duplicates per (month, day) ---
+
 duplicate_day_counts = {}
 missing_summary = []
 
-# --- Process each file in the folder ---
+# Process all file in the folder
 for filename in os.listdir(folder_path):
     if filename.endswith(".csv"):
         file_path = os.path.join(folder_path, filename)
@@ -57,7 +43,7 @@ for filename in os.listdir(folder_path):
             log_lines.append(f"Ticker: {ticker}")
             log_lines.append(f"Rows: {len(df)}")
 
-            # --- Missing Data Check ---
+            # Missing data check
             missing_counts = df.isna().sum()
             total_missing = missing_counts.sum()
             if total_missing > 0:
@@ -71,7 +57,7 @@ for filename in os.listdir(folder_path):
             else:
                 log_lines.append("No missing data found.")
 
-            # --- Check for consecutive duplicate rows ---
+            # Check for consecutive duplicate rows 
             columns_to_compare = ['open', 'close', 'high', 'low', 'adjclose', 'volume']
             shifted = df[columns_to_compare].shift(1)
             is_duplicate = (df[columns_to_compare] == shifted).all(axis=1)
@@ -94,7 +80,7 @@ for filename in os.listdir(folder_path):
             else:
                 log_lines.append("No consecutive duplicate rows found.")
 
-            # --- Output to file and console ---
+            # Output to file and console 
             full_log = "\n".join(log_lines)
             separator = "\n" + "-" * 60 + "\n\n"
 
@@ -113,7 +99,7 @@ for filename in os.listdir(folder_path):
                 f.write(error_msg + "\n")
                 f.write("-" * 60 + "\n\n")
 
-# --- Final Missing Data Summary ---
+# Summary
 if missing_summary:
     print("\n Final Summary: Missing Data per Ticker")
     missing_df = pd.DataFrame(missing_summary)
@@ -127,7 +113,7 @@ if missing_summary:
         f.write(missing_df.to_string(index=False))
         f.write("\n" + "-" * 60 + "\n\n")
 
-# --- Final Summary Plot and Table ---
+
 if duplicate_day_counts:
     print("\n Final Summary: Consecutive Duplicate Frequency by Day of Year")
     with open(output_file, "a", encoding="utf-8") as f:
@@ -147,7 +133,7 @@ if duplicate_day_counts:
         f.write(summary_df[['Date', 'Duplicate Count']].to_string(index=False))
         f.write("\n" + "-" * 60 + "\n\n")
 
-    # --- Separate Plots per Month ---
+    # Ploths per month
     months = summary_df['month'].unique()
     month_names = {
         1: "January", 2: "February", 3: "March", 4: "April",
