@@ -255,7 +255,7 @@ def extract_patterns(dates):
         patterns["Month"].append(date.month)
         if date.day <= 3:
             patterns["TurnOfMonth"].append("Start")
-        elif date.day >= (pd.Period(date, freq='M').days_in_month - 2):
+        elif date.day >= (pd.Period(date, freq='ME').days_in_month - 2):
             patterns["TurnOfMonth"].append("End")
         else:
             patterns["TurnOfMonth"].append("Middle")
@@ -341,3 +341,4 @@ for sector, methods in sector_summary.items():
         
         # Turn-of-month distribution
         plot_distribution(counts['TurnOfMonth'], turn_labels, f"{sector} - {method} - Turn-of-Month Distribution")
+
